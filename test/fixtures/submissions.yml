@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  competitor: one
+  competition: one
+  feedback: MyText
+  score: 1
+  evaluated_at: 2026-03-02 15:46:50
+  status: MyString
+
+two:
+  content: MyText
+  competitor: two
+  competition: two
+  feedback: MyText
+  score: 1
+  evaluated_at: 2026-03-02 15:46:50
+  status: MyString

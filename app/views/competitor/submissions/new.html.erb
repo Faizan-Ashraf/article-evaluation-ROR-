@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h1>Submit Article for <%= @competition.title %></h1>
+  
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Description</h5>
+      <p class="card-text"><%= @competition.description %></p>
+      <h5 class="card-title">Evaluation Criteria</h5>
+      <p class="card-text"><%= @competition.evaluation_criteria %></p>
+    </div>
+  </div>
+
+  <%= form_with model: @submission, url: competitor_submissions_path(competition_id: @competition.id), local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :content, "Your Article", class: 'form-label' %>
+      <%= f.text_area :content, class: 'form-control', rows: 10, required: true %>
+    </div>
+    <%= f.submit "Submit", class: 'btn btn-success' %>
+    <%= link_to "Cancel", root_path, class: 'btn btn-secondary' %>
+  <% end %>
+</div>

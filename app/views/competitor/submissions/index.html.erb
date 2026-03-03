@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <h1>My Results</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Competition</th>
+        <th>Submitted At</th>
+        <th>Score</th>
+        <th>Feedback</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @submissions.each do |sub| %>
+        <tr>
+          <td><%= sub.competition.title %></td>
+          <td><%= sub.created_at.strftime("%b %d, %Y %H:%M") %></td>
+          <td><%= sub.score || '-' %></td>
+          <td><%= sub.feedback || '-' %></td>
+          <td><%= sub.status.capitalize %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

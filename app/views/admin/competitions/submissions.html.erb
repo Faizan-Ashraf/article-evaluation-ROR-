@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h1>Submissions for <%= @competition.title %></h1>
+  <p><%= @competition.description %></p>
+
+  <div class="my-4">
+    <%= button_to "Run AI Evaluation", evaluate_admin_competition_path(@competition), 
+                  method: :post, class: "btn btn-warning", 
+                  data: { confirm: "Are you sure you want to evaluate all submissions?" } %>
+  </div>
+
+  <h2>Submissions</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Competitor</th>
+        <th>Submitted At</th>
+        <th>Score</th>
+        <th>Feedback</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @competition.submissions.order(created_at: :desc).each do |sub| %>
+        <tr onclick="window.location='<%= edit_admin_submission_path(sub) %>'" style="cursor: pointer;">
+          <td><%= sub.id %></td>
+          <td><%= sub.competitor.username %></td>
+          <td><%= sub.created_at.strftime("%b %d, %Y %H:%M") %></td>
+          <td><%= sub.score || "-" %></td>
+          <td><%= sub.feedback || "-" %></td>
+          <td><%= sub.status.capitalize %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to "Back to Competitions", root_path, class: "btn btn-secondary" %>
+</div>

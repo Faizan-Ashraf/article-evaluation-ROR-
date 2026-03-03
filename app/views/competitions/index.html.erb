@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <h1>All Competitions</h1>
+  <div class="row">
+    <% @competitions.each do |competition| %>
+      <div class="col-md-4 mb-4">
+        <% 
+          link_path = if user_signed_in?
+                        if current_user.admin?
+                          submissions_admin_competition_path(competition)
+                        else
+                          new_competitor_submission_path(competition_id: competition.id)
+                        end
+                      else
+                        new_user_session_path
+                      end
+        %>
+        <%= link_to link_path, class: "text-decoration-none" do %>
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= competition.title %></h5>
+              <p class="card-text"><%= truncate(competition.description, length: 100) %></p>
+              <p class="card-text">
+                <span class="badge <%= competition.is_active? ? 'bg-success' : 'bg-secondary' %>">
+                  <%= competition.is_active? ? 'Active' : 'Inactive' %>
+                </span>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

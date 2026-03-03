@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <h1>Manual Evaluation</h1>
+  <h4>Submission #<%= @submission.id %></h4>
+  <p><strong>Competitor:</strong> <%= @submission.competitor.username %></p>
+  <p><strong>Competition:</strong> <%= @submission.competition.title %></p>
+  
+  <div class="card mb-4">
+    <div class="card-header">Article Content</div>
+    <div class="card-body">
+      <%= simple_format(@submission.content) %>
+    </div>
+  </div>
+
+  <%= form_with model: @submission, url: admin_submission_path(@submission), local: true, method: :patch do |f| %>
+    <div class="mb-3">
+      <%= f.label :score, "Score (0-100)", class: 'form-label' %>
+      <%= f.number_field :score, in: 0..100, step: 1, class: 'form-control', required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :feedback, "Feedback", class: 'form-label' %>
+      <%= f.text_area :feedback, class: 'form-control', rows: 5, required: true %>
+    </div>
+
+    <%= f.submit "Submit Evaluation", class: 'btn btn-primary' %>
+    <%= link_to "Cancel", submissions_admin_competition_path(@submission.competition), class: 'btn btn-secondary' %>
+  <% end %>
+</div>

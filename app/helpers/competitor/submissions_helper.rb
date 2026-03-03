@@ -1,0 +1,2 @@
+module Competitor::SubmissionsHelper
+end

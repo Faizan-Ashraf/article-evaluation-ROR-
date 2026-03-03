@@ -31,6 +31,8 @@ class Admin::CompetitionsController < ApplicationController
         status: :evaluated
       )
     end
+
+    Submission.rank(@competition.id)
     redirect_to submissions_admin_competition_path(@competition), notice: 'AI Evaluation completed.'
   end
 

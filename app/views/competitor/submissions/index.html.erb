@@ -8,6 +8,7 @@
         <th>Score</th>
         <th>Feedback</th>
         <th>Status</th>
+        <th>Ranking</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
           <td><%= sub.score || '-' %></td>
           <td><%= sub.feedback || '-' %></td>
           <td><%= sub.status.capitalize %></td>
+           <td><%= sub.ranking || "-" %></td> 
         </tr>
       <% end %>
     </tbody>

@@ -7,6 +7,7 @@ class Admin::SubmissionsController < ApplicationController
 
   def update
     if @submission.update(manual_evaluation_params)
+      Submission.rank(@submission.competition_id)
       redirect_to submissions_admin_competition_path(@submission.competition), 
                   notice: 'Submission evaluated successfully.'
     else

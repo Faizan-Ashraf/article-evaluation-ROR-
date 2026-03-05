@@ -1,19 +1,21 @@
 class Competitor::SubmissionsController < ApplicationController
-  before_action :require_competitor
   before_action :set_competition, only: [:new, :create]
 
   def index
     @submissions = current_user.submissions.includes(:competition).order(created_at: :desc)
+    authorize @submissions, :index?
   end
 
   def new
     @submission = Submission.new
+    authorize @submission
   end
 
   def create
     @submission = current_user.submissions.build(submission_params)
     @submission.competition = @competition
     @submission.created_at = Time.current
+    authorize @submission
     if @submission.save
       redirect_to competitor_my_results_path, notice: 'Article submitted successfully.'
     else

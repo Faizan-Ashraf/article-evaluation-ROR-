@@ -10,15 +10,13 @@
           <li class="nav-item">
             <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
-          <% if current_user.admin? %>
-            <li class="nav-item">
-              <%= link_to "Create Competition", new_admin_competition_path, class: "nav-link" %>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to "My Results", competitor_my_results_path, class: "nav-link" %>
-            </li>
-          <% end %>
+        <% if policy(:competition).create? %>
+            <li><%= link_to "New Competition", new_admin_competition_path, class: "nav-link" %></li>
+        <% end %>
+
+        <% if policy(:submission).index? %>
+            <li><%= link_to "My Results", competitor_my_results_path, class: "nav-link" %></li>
+        <% end %>
           <li class="nav-item">
             <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm nav-link", style: "border:none; background:none;" %>
           </li>

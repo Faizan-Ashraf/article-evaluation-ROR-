@@ -1,14 +1,15 @@
 class Admin::CompetitionsController < ApplicationController
-  before_action :require_admin
   before_action :set_competition, only: [:submissions, :evaluate]
 
   def new
     @competition = Competition.new
+    authorize @competition 
   end
 
   def create
     @competition = Competition.new(competition_params)
     @competition.created_by = current_user
+    authorize @competition
     if @competition.save
       redirect_to root_path, notice: 'Competition created successfully.'
     else
@@ -17,11 +18,12 @@ class Admin::CompetitionsController < ApplicationController
   end
 
   def submissions
-    @competition = Competition.find(params[:id])
-    # render submissions view
+    authorize @competition, :submissions?
+    
   end
 
   def evaluate
+    authorize @competition, :evaluate?
 
     @competition.submissions.each do |sub|
       sub.update(
